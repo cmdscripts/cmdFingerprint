@@ -1,5 +1,3 @@
-
-
 CreateThread(function()
     while ESX == nil do
         ESX = exports['es_extended']:getSharedObject()
@@ -29,20 +27,18 @@ function showInfobar(msg)
     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 end
 
-CreateThread(function()
-    local isMenuOpen = false
+local isMenuOpen = false
 
+CreateThread(function()
     while true do
-        Wait(1)
+        Wait(1000)
         local playerPed = PlayerPedId()
-        local sleep = true
         local pedCoords = GetEntityCoords(playerPed)
 
         for _, coords in ipairs(Config.LSPD_POSITIONS) do
             local distance = #(pedCoords - coords)
 
             if distance < 2.5 then
-                sleep = false
                 if PlayerData and PlayerData.job and contains(Config.jobNames, PlayerData.job.name) then
                     DrawMarker(21, coords, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5, 1.0, 1.3, 255, 0, 0, 250, false, false, nil, true, nil, nil, false)
                     if distance < 2.5 then
@@ -129,11 +125,8 @@ CreateThread(function()
                         end
                     end
                 end
+                Wait(0)
             end
-        end
-
-        if sleep then
-            Wait(1000)
         end
     end
 end)
